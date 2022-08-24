@@ -4,7 +4,7 @@ namespace App\Http\Services\Menu;
 
 use App\Models\Menu;
 use Illuminate\Support\Facades\Session;
-
+use function PHPUnit\Framework\returnArgument;
 
 
 class MenuService
@@ -44,8 +44,9 @@ class MenuService
 
         $menu = Menu::where('id', $id)->first();
         if($menu){
-            $parent = Menu::where('id', $id)->orWhere('parent_id', $id)->delete();
-            return response()->json(['result'=>'Post Deleted successfully']);
+           return  Menu::where('id', $id)->orWhere('parent_id', $id)->delete();
+
+
         }
 
         return false;

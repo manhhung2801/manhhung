@@ -12,10 +12,9 @@ function removeRow(id, url)
             datatype: 'JSON',
             data : { id },
             url : url,
-            success: function (response) {
-                if(response.result) {
-                    console.log(233423);
-                    location.reload();
+            success: function (result) {
+                if(result.error == false) {
+                    window.location.reload();
                 }else {
                     alert('Xóa lỗi vui lòng thử lại');
                 }

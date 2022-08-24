@@ -7,6 +7,7 @@ use App\Http\Requests\Menu\CreateFormRequest;
 use http\Env\Response;
 use Illuminate\Http\Request;
 use App\Http\Services\Menu\MenuService;
+use Illuminate\Http\Resources\Json\JsonResource;
 use phpDocumentor\Reflection\DocBlock\Tags\Formatter;
 
 
@@ -39,18 +40,18 @@ class MenuController extends Controller
          ]);
      }
 
-     public function destroy(Request $request): JsonResponse
+     public function destroy(Request $request)
      {
           $result = $this->menuService->destroy($request);
 
           if($result) {
-              return Response()->json([
+              return response()->json([
                   'error' => false,
                   'message' => 'Xóa thành công danh '
               ]);
           }
 
-             return Response()->json([
+             return response()->json([
                  'error' => true
              ]);
 
