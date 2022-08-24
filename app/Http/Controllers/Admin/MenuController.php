@@ -4,11 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Menu\CreateFormRequest;
-use http\Env\Response;
 use Illuminate\Http\Request;
 use App\Http\Services\Menu\MenuService;
-use Illuminate\Http\Resources\Json\JsonResource;
-use phpDocumentor\Reflection\DocBlock\Tags\Formatter;
+use App\Models\Menu;
 
 
 class MenuController extends Controller
@@ -38,6 +36,21 @@ class MenuController extends Controller
              'title' => 'Danh Sách Danh Mục Mới Nhất',
              'menus' => $this->menuService->getAll()
          ]);
+     }
+
+     public function show(Menu $menu)
+     {
+        return view('admin.menu.edit', [
+            'title' => 'Chỉnh sửa Danh Mục: ' . $menu->name,
+            'menu' => $menu,
+            'menus' => $this->menuService->getParent()
+        ]);
+     }
+
+     public function update(Menu $menu, CreateFormRequest $request)
+     {
+         $this->menuService->update($request, $menu);
+         return redirect('/admin/menus/list');
      }
 
      public function destroy(Request $request)
